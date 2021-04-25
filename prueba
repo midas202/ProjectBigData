@@ -1,0 +1,432 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "attended-browse",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from bs4 import BeautifulSoup\n",
+    "import requests\n",
+    "import pandas as pd"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "romance-leonard",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "url=\"https://www.sweethoops.com/lista-de-lesionados-nba/\""
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "healthy-permission",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "page=requests.get(url)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "curious-serve",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "soup=BeautifulSoup(page.content, 'html.parser')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "id": "criminal-zoning",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[<table>\n",
+      "<tr>\n",
+      "<th align=\"center\" width=\"15%\">Fecha</th>\n",
+      "<th align=\"left\" width=\"20%\">Jugador</th>\n",
+      "<th align=\"left\" width=\"15%\">Lesión</th>\n",
+      "<th align=\"left\" width=\"45%\">Retorno esperado</th>\n",
+      "</tr><tr><td align=\"center\" width=\"15%\">26/03/21</td><td align=\"left\" width=\"20%\">De'Andre Hunter</td><td align=\"left\" width=\"15%\">Rodilla</td><td align=\"left\" width=\"45%\">Decisión previa al partido</td></tr><tr><td align=\"center\" width=\"15%\">25/03/21</td><td align=\"left\" width=\"20%\">Lou Williams</td><td align=\"left\" width=\"15%\">Not Injury Related</td><td align=\"left\" width=\"45%\">Decisión previa al partido</td></tr><tr><td align=\"center\" width=\"15%\">22/02/21</td><td align=\"left\" width=\"20%\">Cam Reddish</td><td align=\"left\" width=\"15%\">Tendón de Aquiles</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el  15 de  Abril</td></tr><tr><td align=\"center\" width=\"15%\">03/12/20</td><td align=\"left\" width=\"20%\">Kris Dunn</td><td align=\"left\" width=\"15%\">Tobillo</td><td align=\"left\" width=\"45%\">Decisión previa al partido</td></tr></table>, <table>\n",
+      "<tr>\n",
+      "<th align=\"center\" width=\"15%\">Fecha</th>\n",
+      "<th align=\"left\" width=\"20%\">Jugador</th>\n",
+      "<th align=\"left\" width=\"15%\">Lesión</th>\n",
+      "<th align=\"left\" width=\"45%\">Retorno esperado</th>\n",
+      "</tr><tr><td align=\"center\" width=\"15%\">29/03/21</td><td align=\"left\" width=\"20%\">Jaylen Brown</td><td align=\"left\" width=\"15%\">Cadera</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el  31 de  Marzo</td></tr><tr><td align=\"center\" width=\"15%\">25/03/21</td><td align=\"left\" width=\"20%\">Semi Ojeleye</td><td align=\"left\" width=\"15%\">Cadera</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el   9 de  Abril</td></tr><tr><td align=\"center\" width=\"15%\">16/03/21</td><td align=\"left\" width=\"20%\">Tristan Thompson</td><td align=\"left\" width=\"15%\">Covid-19</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el  31 de  Marzo</td></tr><tr><td align=\"center\" width=\"15%\">17/09/20</td><td align=\"left\" width=\"20%\">Romeo Langford</td><td align=\"left\" width=\"15%\">Covid-19</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el   9 de  Abril</td></tr></table>, <table>\n",
+      "<tr>\n",
+      "<th align=\"center\" width=\"15%\">Fecha</th>\n",
+      "<th align=\"left\" width=\"20%\">Jugador</th>\n",
+      "<th align=\"left\" width=\"15%\">Lesión</th>\n",
+      "<th align=\"left\" width=\"45%\">Retorno esperado</th>\n",
+      "</tr><tr><td align=\"center\" width=\"15%\">27/03/21</td><td align=\"left\" width=\"20%\">LaMarcus Aldridge</td><td align=\"left\" width=\"15%\">Not Injury Related</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el   1 de  Abril</td></tr><tr><td align=\"center\" width=\"15%\">22/03/21</td><td align=\"left\" width=\"20%\">Landry Shamet</td><td align=\"left\" width=\"15%\">Tobillo</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el   5 de  Abril</td></tr><tr><td align=\"center\" width=\"15%\">15/02/21</td><td align=\"left\" width=\"20%\">Kevin Durant</td><td align=\"left\" width=\"15%\">Tendón de la corva</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el   5 de  Abril</td></tr><tr><td align=\"center\" width=\"15%\">28/12/20</td><td align=\"left\" width=\"20%\">Spencer Dinwiddie</td><td align=\"left\" width=\"15%\">Rodilla</td><td align=\"left\" width=\"45%\">Fuera hasta</td></tr></table>, <table>\n",
+      "<tr>\n",
+      "<th align=\"center\" width=\"15%\">Fecha</th>\n",
+      "<th align=\"left\" width=\"20%\">Jugador</th>\n",
+      "<th align=\"left\" width=\"15%\">Lesión</th>\n",
+      "<th align=\"left\" width=\"45%\">Retorno esperado</th>\n",
+      "</tr><tr><td align=\"center\" width=\"15%\">28/03/21</td><td align=\"left\" width=\"20%\">Malik Monk</td><td align=\"left\" width=\"15%\">Pie</td><td align=\"left\" width=\"45%\">Decisión previa al partido</td></tr><tr><td align=\"center\" width=\"15%\">21/03/21</td><td align=\"left\" width=\"20%\">LaMelo Ball</td><td align=\"left\" width=\"15%\">Muñeca</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el  25 de  Abril</td></tr></table>, <table>\n",
+      "<tr>\n",
+      "<th align=\"center\" width=\"15%\">Fecha</th>\n",
+      "<th align=\"left\" width=\"20%\">Jugador</th>\n",
+      "<th align=\"left\" width=\"15%\">Lesión</th>\n",
+      "<th align=\"left\" width=\"45%\">Retorno esperado</th>\n",
+      "</tr><tr><td align=\"center\" width=\"15%\">29/03/21</td><td align=\"left\" width=\"20%\">Coby White</td><td align=\"left\" width=\"15%\">Neck</td><td align=\"left\" width=\"45%\">Decisión previa al partido</td></tr><tr><td align=\"center\" width=\"15%\">29/03/21</td><td align=\"left\" width=\"20%\">Lauri Markkanen</td><td align=\"left\" width=\"15%\">Pantorrilla</td><td align=\"left\" width=\"45%\">Decisión previa al partido</td></tr><tr><td align=\"center\" width=\"15%\">29/03/21</td><td align=\"left\" width=\"20%\">Zach LaVine</td><td align=\"left\" width=\"15%\">Tobillo</td><td align=\"left\" width=\"45%\">Decisión previa al partido</td></tr></table>, <table>\n",
+      "<tr>\n",
+      "<th align=\"center\" width=\"15%\">Fecha</th>\n",
+      "<th align=\"left\" width=\"20%\">Jugador</th>\n",
+      "<th align=\"left\" width=\"15%\">Lesión</th>\n",
+      "<th align=\"left\" width=\"45%\">Retorno esperado</th>\n",
+      "</tr><tr><td align=\"center\" width=\"15%\">29/03/21</td><td align=\"left\" width=\"20%\">Larry Nance Jr.</td><td align=\"left\" width=\"15%\">Illness</td><td align=\"left\" width=\"45%\">Decisión previa al partido</td></tr><tr><td align=\"center\" width=\"15%\">27/03/21</td><td align=\"left\" width=\"20%\">Jarrett Allen</td><td align=\"left\" width=\"15%\">Conmoción cerebral</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el   1 de  Abril</td></tr><tr><td align=\"center\" width=\"15%\">15/03/21</td><td align=\"left\" width=\"20%\">Kevin Love</td><td align=\"left\" width=\"15%\">Pantorrilla</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el   1 de  Abril</td></tr><tr><td align=\"center\" width=\"15%\">12/03/21</td><td align=\"left\" width=\"20%\">Taurean Prince</td><td align=\"left\" width=\"15%\">Hombro</td><td align=\"left\" width=\"45%\">Decisión previa al partido</td></tr><tr><td align=\"center\" width=\"15%\">13/12/20</td><td align=\"left\" width=\"20%\">Matthew Dellavedova</td><td align=\"left\" width=\"15%\">Abdomen</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el   1 de  Abril</td></tr></table>, <table>\n",
+      "<tr>\n",
+      "<th align=\"center\" width=\"15%\">Fecha</th>\n",
+      "<th align=\"left\" width=\"20%\">Jugador</th>\n",
+      "<th align=\"left\" width=\"15%\">Lesión</th>\n",
+      "<th align=\"left\" width=\"45%\">Retorno esperado</th>\n",
+      "</tr><tr><td align=\"center\" width=\"15%\">18/03/21</td><td align=\"left\" width=\"20%\">Willie Cauley-Stein</td><td align=\"left\" width=\"15%\">Covid-19</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el  31 de  Marzo</td></tr><tr><td align=\"center\" width=\"15%\">18/03/21</td><td align=\"left\" width=\"20%\">Tyrell Terry</td><td align=\"left\" width=\"15%\">Personal</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el  31 de  Marzo</td></tr><tr><td align=\"center\" width=\"15%\">04/03/21</td><td align=\"left\" width=\"20%\">JJ Redick</td><td align=\"left\" width=\"15%\">Heel</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el  31 de  Marzo</td></tr></table>, <table>\n",
+      "<tr>\n",
+      "<th align=\"center\" width=\"15%\">Fecha</th>\n",
+      "<th align=\"left\" width=\"20%\">Jugador</th>\n",
+      "<th align=\"left\" width=\"15%\">Lesión</th>\n",
+      "<th align=\"left\" width=\"45%\">Retorno esperado</th>\n",
+      "</tr><tr><td align=\"center\" width=\"15%\">25/03/21</td><td align=\"left\" width=\"20%\">Gary Clark</td><td align=\"left\" width=\"15%\">Not Injury Related</td><td align=\"left\" width=\"45%\">Decisión previa al partido</td></tr><tr><td align=\"center\" width=\"15%\">21/03/21</td><td align=\"left\" width=\"20%\">Greg Whittington</td><td align=\"left\" width=\"15%\">Rodilla</td><td align=\"left\" width=\"45%\">Decisión previa al partido</td></tr><tr><td align=\"center\" width=\"15%\">13/03/21</td><td align=\"left\" width=\"20%\">Monte Morris</td><td align=\"left\" width=\"15%\">Quadriceps</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el   1 de  Abril</td></tr></table>, <table>\n",
+      "<tr>\n",
+      "<th align=\"center\" width=\"15%\">Fecha</th>\n",
+      "<th align=\"left\" width=\"20%\">Jugador</th>\n",
+      "<th align=\"left\" width=\"15%\">Lesión</th>\n",
+      "<th align=\"left\" width=\"45%\">Retorno esperado</th>\n",
+      "</tr><tr><td align=\"center\" width=\"15%\">29/03/21</td><td align=\"left\" width=\"20%\">Sekou Doumbouya</td><td align=\"left\" width=\"15%\">Illness</td><td align=\"left\" width=\"45%\">Decisión previa al partido</td></tr><tr><td align=\"center\" width=\"15%\">28/03/21</td><td align=\"left\" width=\"20%\">Jerami Grant</td><td align=\"left\" width=\"15%\">Quadriceps</td><td align=\"left\" width=\"45%\">Decisión previa al partido</td></tr><tr><td align=\"center\" width=\"15%\">27/03/21</td><td align=\"left\" width=\"20%\">Rodney McGruder</td><td align=\"left\" width=\"15%\">Codo</td><td align=\"left\" width=\"45%\">Decisión previa al partido</td></tr><tr><td align=\"center\" width=\"15%\">25/03/21</td><td align=\"left\" width=\"20%\">Dennis Smith Jr.</td><td align=\"left\" width=\"15%\">Espalda</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el  31 de  Marzo</td></tr><tr><td align=\"center\" width=\"15%\">02/02/21</td><td align=\"left\" width=\"20%\">Jahlil Okafor</td><td align=\"left\" width=\"15%\">Rodilla</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el  29 de  Abril</td></tr><tr><td align=\"center\" width=\"15%\">05/01/21</td><td align=\"left\" width=\"20%\">Killian Hayes</td><td align=\"left\" width=\"15%\">Cadera</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el   6 de  Abril</td></tr></table>, <table>\n",
+      "<tr>\n",
+      "<th align=\"center\" width=\"15%\">Fecha</th>\n",
+      "<th align=\"left\" width=\"20%\">Jugador</th>\n",
+      "<th align=\"left\" width=\"15%\">Lesión</th>\n",
+      "<th align=\"left\" width=\"45%\">Retorno esperado</th>\n",
+      "</tr><tr><td align=\"center\" width=\"15%\">29/03/21</td><td align=\"left\" width=\"20%\">Eric Paschall</td><td align=\"left\" width=\"15%\">Muñeca</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el   1 de  Abril</td></tr><tr><td align=\"center\" width=\"15%\">18/03/21</td><td align=\"left\" width=\"20%\">Stephen Curry</td><td align=\"left\" width=\"15%\">Lower Body</td><td align=\"left\" width=\"45%\">Decisión previa al partido</td></tr><tr><td align=\"center\" width=\"15%\">18/11/20</td><td align=\"left\" width=\"20%\">Klay Thompson</td><td align=\"left\" width=\"15%\">Tendón de Aquiles</td><td align=\"left\" width=\"45%\">Fuera hasta</td></tr></table>, <table>\n",
+      "<tr>\n",
+      "<th align=\"center\" width=\"15%\">Fecha</th>\n",
+      "<th align=\"left\" width=\"20%\">Jugador</th>\n",
+      "<th align=\"left\" width=\"15%\">Lesión</th>\n",
+      "<th align=\"left\" width=\"45%\">Retorno esperado</th>\n",
+      "</tr><tr><td align=\"center\" width=\"15%\">27/03/21</td><td align=\"left\" width=\"20%\">Christian Wood</td><td align=\"left\" width=\"15%\">Illness</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el  31 de  Marzo</td></tr><tr><td align=\"center\" width=\"15%\">15/03/21</td><td align=\"left\" width=\"20%\">David Nwaba</td><td align=\"left\" width=\"15%\">Muñeca</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el  15 de  Abril</td></tr><tr><td align=\"center\" width=\"15%\">12/03/21</td><td align=\"left\" width=\"20%\">Eric Gordon</td><td align=\"left\" width=\"15%\">Ingle</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el   2 de  Abril</td></tr><tr><td align=\"center\" width=\"15%\">17/01/21</td><td align=\"left\" width=\"20%\">Dante Exum</td><td align=\"left\" width=\"15%\">Pantorrilla</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el   4 de  Abril</td></tr></table>, <table>\n",
+      "<tr>\n",
+      "<th align=\"center\" width=\"15%\">Fecha</th>\n",
+      "<th align=\"left\" width=\"20%\">Jugador</th>\n",
+      "<th align=\"left\" width=\"15%\">Lesión</th>\n",
+      "<th align=\"left\" width=\"45%\">Retorno esperado</th>\n",
+      "</tr><tr><td align=\"center\" width=\"15%\">27/03/21</td><td align=\"left\" width=\"20%\">Doug McDermott</td><td align=\"left\" width=\"15%\">Tobillo</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el  31 de  Marzo</td></tr><tr><td align=\"center\" width=\"15%\">30/12/20</td><td align=\"left\" width=\"20%\">T.J. Warren</td><td align=\"left\" width=\"15%\">Pie</td><td align=\"left\" width=\"45%\">Fuera hasta</td></tr></table>, <table>\n",
+      "<tr>\n",
+      "<th align=\"center\" width=\"15%\">Fecha</th>\n",
+      "<th align=\"left\" width=\"20%\">Jugador</th>\n",
+      "<th align=\"left\" width=\"15%\">Lesión</th>\n",
+      "<th align=\"left\" width=\"45%\">Retorno esperado</th>\n",
+      "</tr><tr><td align=\"center\" width=\"15%\">25/03/21</td><td align=\"left\" width=\"20%\">Rajon Rondo</td><td align=\"left\" width=\"15%\">Ingle</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el  30 de  Marzo</td></tr><tr><td align=\"center\" width=\"15%\">15/03/21</td><td align=\"left\" width=\"20%\">Serge Ibaka</td><td align=\"left\" width=\"15%\">Espalda</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el  30 de  Marzo</td></tr><tr><td align=\"center\" width=\"15%\">12/03/21</td><td align=\"left\" width=\"20%\">Patrick Beverley</td><td align=\"left\" width=\"15%\">Rodilla</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el  30 de  Marzo</td></tr><tr><td align=\"center\" width=\"15%\">04/02/21</td><td align=\"left\" width=\"20%\">Jay Scrubb</td><td align=\"left\" width=\"15%\">Pie</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el  30 de  Marzo</td></tr></table>, <table>\n",
+      "<tr>\n",
+      "<th align=\"center\" width=\"15%\">Fecha</th>\n",
+      "<th align=\"left\" width=\"20%\">Jugador</th>\n",
+      "<th align=\"left\" width=\"15%\">Lesión</th>\n",
+      "<th align=\"left\" width=\"45%\">Retorno esperado</th>\n",
+      "</tr><tr><td align=\"center\" width=\"15%\">28/03/21</td><td align=\"left\" width=\"20%\">Andre Drummond</td><td align=\"left\" width=\"15%\">Not Injury Related</td><td align=\"left\" width=\"45%\">Decisión previa al partido</td></tr><tr><td align=\"center\" width=\"15%\">20/03/21</td><td align=\"left\" width=\"20%\">LeBron James</td><td align=\"left\" width=\"15%\">Tobillo</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el  15 de  Abril</td></tr><tr><td align=\"center\" width=\"15%\">15/03/21</td><td align=\"left\" width=\"20%\">Jared Dudley</td><td align=\"left\" width=\"15%\">Rodilla</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el  22 de  Abril</td></tr><tr><td align=\"center\" width=\"15%\">15/02/21</td><td align=\"left\" width=\"20%\">Anthony Davis</td><td align=\"left\" width=\"15%\">Pantorrilla</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el   6 de  Abril</td></tr></table>, <table>\n",
+      "<tr>\n",
+      "<th align=\"center\" width=\"15%\">Fecha</th>\n",
+      "<th align=\"left\" width=\"20%\">Jugador</th>\n",
+      "<th align=\"left\" width=\"15%\">Lesión</th>\n",
+      "<th align=\"left\" width=\"45%\">Retorno esperado</th>\n",
+      "</tr><tr><td align=\"center\" width=\"15%\">29/03/21</td><td align=\"left\" width=\"20%\">Justise Winslow</td><td align=\"left\" width=\"15%\">Quadriceps</td><td align=\"left\" width=\"45%\">Decisión previa al partido</td></tr><tr><td align=\"center\" width=\"15%\">04/08/20</td><td align=\"left\" width=\"20%\">Jaren Jackson Jr.</td><td align=\"left\" width=\"15%\">Rodilla</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el  23 de  Abril</td></tr></table>, <table>\n",
+      "<tr>\n",
+      "<th align=\"center\" width=\"15%\">Fecha</th>\n",
+      "<th align=\"left\" width=\"20%\">Jugador</th>\n",
+      "<th align=\"left\" width=\"15%\">Lesión</th>\n",
+      "<th align=\"left\" width=\"45%\">Retorno esperado</th>\n",
+      "</tr><tr><td align=\"center\" width=\"15%\">28/03/21</td><td align=\"left\" width=\"20%\">Gabe Vincent</td><td align=\"left\" width=\"15%\">Rodilla</td><td align=\"left\" width=\"45%\">Decisión previa al partido</td></tr><tr><td align=\"center\" width=\"15%\">27/03/21</td><td align=\"left\" width=\"20%\">Kendrick Nunn</td><td align=\"left\" width=\"15%\">Tobillo</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el  31 de  Marzo</td></tr><tr><td align=\"center\" width=\"15%\">24/03/21</td><td align=\"left\" width=\"20%\">Victor Oladipo</td><td align=\"left\" width=\"15%\">Illness</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el  31 de  Marzo</td></tr><tr><td align=\"center\" width=\"15%\">23/03/21</td><td align=\"left\" width=\"20%\">KZ Okpala</td><td align=\"left\" width=\"15%\">Covid-19</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el  31 de  Marzo</td></tr><tr><td align=\"center\" width=\"15%\">19/03/21</td><td align=\"left\" width=\"20%\">Udonis Haslem</td><td align=\"left\" width=\"15%\">Covid-19</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el  31 de  Marzo</td></tr></table>, <table>\n",
+      "<tr>\n",
+      "<th align=\"center\" width=\"15%\">Fecha</th>\n",
+      "<th align=\"left\" width=\"20%\">Jugador</th>\n",
+      "<th align=\"left\" width=\"15%\">Lesión</th>\n",
+      "<th align=\"left\" width=\"45%\">Retorno esperado</th>\n",
+      "</tr><tr><td align=\"center\" width=\"15%\">26/03/21</td><td align=\"left\" width=\"20%\">Bobby Portis</td><td align=\"left\" width=\"15%\">Covid-19</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el  31 de  Marzo</td></tr><tr><td align=\"center\" width=\"15%\">26/03/21</td><td align=\"left\" width=\"20%\">P.J. Tucker</td><td align=\"left\" width=\"15%\">Pantorrilla</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el  31 de  Marzo</td></tr><tr><td align=\"center\" width=\"15%\">01/03/21</td><td align=\"left\" width=\"20%\">Rodions Kurucs</td><td align=\"left\" width=\"15%\">Oblicuos</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el  31 de  Marzo</td></tr></table>, <table>\n",
+      "<tr>\n",
+      "<th align=\"center\" width=\"15%\">Fecha</th>\n",
+      "<th align=\"left\" width=\"20%\">Jugador</th>\n",
+      "<th align=\"left\" width=\"15%\">Lesión</th>\n",
+      "<th align=\"left\" width=\"45%\">Retorno esperado</th>\n",
+      "</tr><tr><td align=\"center\" width=\"15%\">24/03/21</td><td align=\"left\" width=\"20%\">Josh Okogie</td><td align=\"left\" width=\"15%\">Covid-19</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el  31 de  Marzo</td></tr><tr><td align=\"center\" width=\"15%\">09/02/21</td><td align=\"left\" width=\"20%\">D'Angelo Russell</td><td align=\"left\" width=\"15%\">Rodilla</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el   2 de  Abril</td></tr></table>, <table>\n",
+      "<tr>\n",
+      "<th align=\"center\" width=\"15%\">Fecha</th>\n",
+      "<th align=\"left\" width=\"20%\">Jugador</th>\n",
+      "<th align=\"left\" width=\"15%\">Lesión</th>\n",
+      "<th align=\"left\" width=\"45%\">Retorno esperado</th>\n",
+      "</tr><tr><td align=\"center\" width=\"15%\">27/03/21</td><td align=\"left\" width=\"20%\">Jaxson Hayes</td><td align=\"left\" width=\"15%\">Muñeca</td><td align=\"left\" width=\"45%\">Decisión previa al partido</td></tr><tr><td align=\"center\" width=\"15%\">20/03/21</td><td align=\"left\" width=\"20%\">Lonzo Ball</td><td align=\"left\" width=\"15%\">Cadera</td><td align=\"left\" width=\"45%\">Decisión previa al partido</td></tr></table>, <table>\n",
+      "<tr>\n",
+      "<th align=\"center\" width=\"15%\">Fecha</th>\n",
+      "<th align=\"left\" width=\"20%\">Jugador</th>\n",
+      "<th align=\"left\" width=\"15%\">Lesión</th>\n",
+      "<th align=\"left\" width=\"45%\">Retorno esperado</th>\n",
+      "</tr><tr><td align=\"center\" width=\"15%\">28/03/21</td><td align=\"left\" width=\"20%\">Mitchell Robinson</td><td align=\"left\" width=\"15%\">Pie</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el   2 de  Mayo</td></tr></table>, <table>\n",
+      "<tr>\n",
+      "<th align=\"center\" width=\"15%\">Fecha</th>\n",
+      "<th align=\"left\" width=\"20%\">Jugador</th>\n",
+      "<th align=\"left\" width=\"15%\">Lesión</th>\n",
+      "<th align=\"left\" width=\"45%\">Retorno esperado</th>\n",
+      "</tr><tr><td align=\"center\" width=\"15%\">28/03/21</td><td align=\"left\" width=\"20%\">Luguentz Dort</td><td align=\"left\" width=\"15%\">Conmoción cerebral</td><td align=\"left\" width=\"45%\">Decisión previa al partido</td></tr><tr><td align=\"center\" width=\"15%\">28/03/21</td><td align=\"left\" width=\"20%\">Mike Muscala</td><td align=\"left\" width=\"15%\">Tobillo</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el  31 de  Marzo</td></tr><tr><td align=\"center\" width=\"15%\">27/03/21</td><td align=\"left\" width=\"20%\">Al Horford</td><td align=\"left\" width=\"15%\">Coach's Decision</td><td align=\"left\" width=\"45%\">Fuera hasta</td></tr><tr><td align=\"center\" width=\"15%\">24/03/21</td><td align=\"left\" width=\"20%\">Shai Gilgeous-Alexander</td><td align=\"left\" width=\"15%\">Pie</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el   2 de  Abril</td></tr><tr><td align=\"center\" width=\"15%\">11/03/21</td><td align=\"left\" width=\"20%\">Darius Bazley</td><td align=\"left\" width=\"15%\">Hombro</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el   5 de  Abril</td></tr></table>, <table>\n",
+      "<tr>\n",
+      "<th align=\"center\" width=\"15%\">Fecha</th>\n",
+      "<th align=\"left\" width=\"20%\">Jugador</th>\n",
+      "<th align=\"left\" width=\"15%\">Lesión</th>\n",
+      "<th align=\"left\" width=\"45%\">Retorno esperado</th>\n",
+      "</tr><tr><td align=\"center\" width=\"15%\">29/03/21</td><td align=\"left\" width=\"20%\">Jeff Teague</td><td align=\"left\" width=\"15%\">Not Injury Related</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el  31 de  Marzo</td></tr><tr><td align=\"center\" width=\"15%\">29/03/21</td><td align=\"left\" width=\"20%\">Michael Carter-Williams</td><td align=\"left\" width=\"15%\">Rodilla</td><td align=\"left\" width=\"45%\">Decisión previa al partido</td></tr><tr><td align=\"center\" width=\"15%\">18/03/21</td><td align=\"left\" width=\"20%\">Terrence Ross</td><td align=\"left\" width=\"15%\">Rodilla</td><td align=\"left\" width=\"45%\">Decisión previa al partido</td></tr><tr><td align=\"center\" width=\"15%\">18/02/21</td><td align=\"left\" width=\"20%\">Gary Harris</td><td align=\"left\" width=\"15%\">Thigh</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el   4 de  Abril</td></tr><tr><td align=\"center\" width=\"15%\">10/02/21</td><td align=\"left\" width=\"20%\">Cole Anthony</td><td align=\"left\" width=\"15%\">Costillas</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el   9 de  Abril</td></tr><tr><td align=\"center\" width=\"15%\">07/01/21</td><td align=\"left\" width=\"20%\">Markelle Fultz</td><td align=\"left\" width=\"15%\">Rodilla</td><td align=\"left\" width=\"45%\">Fuera hasta</td></tr><tr><td align=\"center\" width=\"15%\">03/08/20</td><td align=\"left\" width=\"20%\">Jonathan Isaac</td><td align=\"left\" width=\"15%\">Rodilla</td><td align=\"left\" width=\"45%\">Fuera hasta</td></tr></table>, <table>\n",
+      "<tr>\n",
+      "<th align=\"center\" width=\"15%\">Fecha</th>\n",
+      "<th align=\"left\" width=\"20%\">Jugador</th>\n",
+      "<th align=\"left\" width=\"15%\">Lesión</th>\n",
+      "<th align=\"left\" width=\"45%\">Retorno esperado</th>\n",
+      "</tr><tr><td align=\"center\" width=\"15%\">25/03/21</td><td align=\"left\" width=\"20%\">Iggy Brazdeikis</td><td align=\"left\" width=\"15%\">Not Injury Related</td><td align=\"left\" width=\"45%\">Decisión previa al partido</td></tr><tr><td align=\"center\" width=\"15%\">13/03/21</td><td align=\"left\" width=\"20%\">Joel Embiid</td><td align=\"left\" width=\"15%\">Rodilla</td><td align=\"left\" width=\"45%\">Decisión previa al partido</td></tr><tr><td align=\"center\" width=\"15%\">25/01/21</td><td align=\"left\" width=\"20%\">George Hill</td><td align=\"left\" width=\"15%\">Thumb</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el   1 de  Abril</td></tr></table>, <table>\n",
+      "<tr>\n",
+      "<th align=\"center\" width=\"15%\">Fecha</th>\n",
+      "<th align=\"left\" width=\"20%\">Jugador</th>\n",
+      "<th align=\"left\" width=\"15%\">Lesión</th>\n",
+      "<th align=\"left\" width=\"45%\">Retorno esperado</th>\n",
+      "</tr><tr><td align=\"center\" width=\"15%\">22/03/21</td><td align=\"left\" width=\"20%\">Abdel Nader</td><td align=\"left\" width=\"15%\">Rodilla</td><td align=\"left\" width=\"45%\">Decisión previa al partido</td></tr></table>, <table>\n",
+      "<tr>\n",
+      "<th align=\"center\" width=\"15%\">Fecha</th>\n",
+      "<th align=\"left\" width=\"20%\">Jugador</th>\n",
+      "<th align=\"left\" width=\"15%\">Lesión</th>\n",
+      "<th align=\"left\" width=\"45%\">Retorno esperado</th>\n",
+      "</tr><tr><td align=\"center\" width=\"15%\">27/03/21</td><td align=\"left\" width=\"20%\">Nassir Little</td><td align=\"left\" width=\"15%\">Thumb</td><td align=\"left\" width=\"45%\">Decisión previa al partido</td></tr><tr><td align=\"center\" width=\"15%\">15/08/20</td><td align=\"left\" width=\"20%\">Zach Collins</td><td align=\"left\" width=\"15%\">Tobillo</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el   1 de  Abril</td></tr></table>, <table>\n",
+      "<tr>\n",
+      "<th align=\"center\" width=\"15%\">Fecha</th>\n",
+      "<th align=\"left\" width=\"20%\">Jugador</th>\n",
+      "<th align=\"left\" width=\"15%\">Lesión</th>\n",
+      "<th align=\"left\" width=\"45%\">Retorno esperado</th>\n",
+      "</tr><tr><td align=\"center\" width=\"15%\">27/03/21</td><td align=\"left\" width=\"20%\">Hassan Whiteside</td><td align=\"left\" width=\"15%\">Rodilla</td><td align=\"left\" width=\"45%\">Decisión previa al partido</td></tr><tr><td align=\"center\" width=\"15%\">20/03/21</td><td align=\"left\" width=\"20%\">Jahmi'us Ramsey</td><td align=\"left\" width=\"15%\">Tendón de la corva</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el  31 de  Marzo</td></tr><tr><td align=\"center\" width=\"15%\">16/03/21</td><td align=\"left\" width=\"20%\">Marvin Bagley III</td><td align=\"left\" width=\"15%\">Mano</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el  15 de  Abril</td></tr></table>, <table>\n",
+      "<tr>\n",
+      "<th align=\"center\" width=\"15%\">Fecha</th>\n",
+      "<th align=\"left\" width=\"20%\">Jugador</th>\n",
+      "<th align=\"left\" width=\"15%\">Lesión</th>\n",
+      "<th align=\"left\" width=\"45%\">Retorno esperado</th>\n",
+      "</tr><tr><td align=\"center\" width=\"15%\">28/03/21</td><td align=\"left\" width=\"20%\">Gorgui Dieng</td><td align=\"left\" width=\"15%\">Not Injury Related</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el  31 de  Marzo</td></tr><tr><td align=\"center\" width=\"15%\">23/03/21</td><td align=\"left\" width=\"20%\">Lonnie Walker IV</td><td align=\"left\" width=\"15%\">Muñeca</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el   3 de  Abril</td></tr><tr><td align=\"center\" width=\"15%\">15/03/21</td><td align=\"left\" width=\"20%\">Keita Bates-Diop</td><td align=\"left\" width=\"15%\">Tendón de la corva</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el  31 de  Marzo</td></tr></table>, <table>\n",
+      "<tr>\n",
+      "<th align=\"center\" width=\"15%\">Fecha</th>\n",
+      "<th align=\"left\" width=\"20%\">Jugador</th>\n",
+      "<th align=\"left\" width=\"15%\">Lesión</th>\n",
+      "<th align=\"left\" width=\"45%\">Retorno esperado</th>\n",
+      "</tr><tr><td align=\"center\" width=\"15%\">28/03/21</td><td align=\"left\" width=\"20%\">Kyle Lowry</td><td align=\"left\" width=\"15%\">Pie</td><td align=\"left\" width=\"45%\">Decisión previa al partido</td></tr><tr><td align=\"center\" width=\"15%\">28/03/21</td><td align=\"left\" width=\"20%\">Jalen Harris</td><td align=\"left\" width=\"15%\">Cadera</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el   2 de  Abril</td></tr><tr><td align=\"center\" width=\"15%\">26/03/21</td><td align=\"left\" width=\"20%\">Paul Watson Jr.</td><td align=\"left\" width=\"15%\">Covid-19</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el  31 de  Marzo</td></tr><tr><td align=\"center\" width=\"15%\">26/03/21</td><td align=\"left\" width=\"20%\">DeAndre' Bembry</td><td align=\"left\" width=\"15%\">Covid-19</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el  31 de  Marzo</td></tr><tr><td align=\"center\" width=\"15%\">24/03/21</td><td align=\"left\" width=\"20%\">Patrick McCaw</td><td align=\"left\" width=\"15%\">Rodilla</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el  31 de  Marzo</td></tr></table>, <table>\n",
+      "<tr>\n",
+      "<th align=\"center\" width=\"15%\">Fecha</th>\n",
+      "<th align=\"left\" width=\"20%\">Jugador</th>\n",
+      "<th align=\"left\" width=\"15%\">Lesión</th>\n",
+      "<th align=\"left\" width=\"45%\">Retorno esperado</th>\n",
+      "</tr><tr><td align=\"center\" width=\"15%\">29/03/21</td><td align=\"left\" width=\"20%\">Juwan Morgan</td><td align=\"left\" width=\"15%\">Pantorrilla</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el  31 de  Marzo</td></tr><tr><td align=\"center\" width=\"15%\">11/02/21</td><td align=\"left\" width=\"20%\">Udoka Azubuike</td><td align=\"left\" width=\"15%\">Tobillo</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el   1 de  Abril</td></tr></table>, <table>\n",
+      "<tr>\n",
+      "<th align=\"center\" width=\"15%\">Fecha</th>\n",
+      "<th align=\"left\" width=\"20%\">Jugador</th>\n",
+      "<th align=\"left\" width=\"15%\">Lesión</th>\n",
+      "<th align=\"left\" width=\"45%\">Retorno esperado</th>\n",
+      "</tr><tr><td align=\"center\" width=\"15%\">28/03/21</td><td align=\"left\" width=\"20%\">Bradley Beal</td><td align=\"left\" width=\"15%\">Cadera</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el  30 de  Marzo</td></tr><tr><td align=\"center\" width=\"15%\">18/03/21</td><td align=\"left\" width=\"20%\">Davis Bertans</td><td align=\"left\" width=\"15%\">Pantorrilla</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el   1 de  Abril</td></tr><tr><td align=\"center\" width=\"15%\">13/02/21</td><td align=\"left\" width=\"20%\">Ish Smith</td><td align=\"left\" width=\"15%\">Quadriceps</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el   5 de  Abril</td></tr><tr><td align=\"center\" width=\"15%\">10/01/21</td><td align=\"left\" width=\"20%\">Thomas Bryant</td><td align=\"left\" width=\"15%\">Rodilla</td><td align=\"left\" width=\"45%\">Fuera hasta</td></tr></table>]\n"
+     ]
+    }
+   ],
+   "source": [
+    "#lesionados\n",
+    "\n",
+    "les=soup.find_all('table')\n",
+    "print(les)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "id": "ambient-glossary",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<table>\n",
+       "<tr>\n",
+       "<th align=\"center\" width=\"15%\">Fecha</th>\n",
+       "<th align=\"left\" width=\"20%\">Jugador</th>\n",
+       "<th align=\"left\" width=\"15%\">Lesión</th>\n",
+       "<th align=\"left\" width=\"45%\">Retorno esperado</th>\n",
+       "</tr><tr><td align=\"center\" width=\"15%\">29/03/21</td><td align=\"left\" width=\"20%\">Jaylen Brown</td><td align=\"left\" width=\"15%\">Cadera</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el  31 de  Marzo</td></tr><tr><td align=\"center\" width=\"15%\">25/03/21</td><td align=\"left\" width=\"20%\">Semi Ojeleye</td><td align=\"left\" width=\"15%\">Cadera</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el   9 de  Abril</td></tr><tr><td align=\"center\" width=\"15%\">16/03/21</td><td align=\"left\" width=\"20%\">Tristan Thompson</td><td align=\"left\" width=\"15%\">Covid-19</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el  31 de  Marzo</td></tr><tr><td align=\"center\" width=\"15%\">17/09/20</td><td align=\"left\" width=\"20%\">Romeo Langford</td><td align=\"left\" width=\"15%\">Covid-19</td><td align=\"left\" width=\"45%\">Fuera al menos hasta  el   9 de  Abril</td></tr></table>"
+      ]
+     },
+     "execution_count": 13,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "les[1]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "id": "controlled-motorcycle",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "30"
+      ]
+     },
+     "execution_count": 16,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "len(les)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "id": "eight-gnome",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "0\n",
+      "1\n",
+      "2\n",
+      "3\n",
+      "4\n",
+      "5\n",
+      "6\n",
+      "7\n",
+      "8\n",
+      "9\n",
+      "10\n",
+      "11\n",
+      "12\n",
+      "13\n",
+      "14\n",
+      "15\n",
+      "16\n",
+      "17\n",
+      "18\n",
+      "19\n",
+      "20\n",
+      "21\n",
+      "22\n",
+      "23\n",
+      "24\n",
+      "25\n",
+      "26\n",
+      "27\n",
+      "28\n",
+      "29\n"
+     ]
+    }
+   ],
+   "source": [
+    "for i in range(len(les)):\n",
+    "    print(i)\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "id": "homeless-taxation",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Fecha</th>\n",
+       "      <th>Jugador</th>\n",
+       "      <th>Lesión</th>\n",
+       "      <th>Retorno esperado</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>26/03/21</td>\n",
+       "      <td>De'Andre Hunter</td>\n",
+       "      <td>Rodilla</td>\n",
+       "      <td>Decisión previa al partido</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>25/03/21</td>\n",
+       "      <td>Lou Williams</td>\n",
+       "      <td>Not Injury Related</td>\n",
+       "      <td>Decisión previa al partido</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "      Fecha          Jugador              Lesión            Retorno esperado\n",
+       "0  26/03/21  De'Andre Hunter             Rodilla  Decisión previa al partido\n",
+       "1  25/03/21     Lou Williams  Not Injury Related  Decisión previa al partido"
+      ]
+     },
+     "execution_count": 19,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "data_frame = pd.read_html(str(les))[0]\n",
+    "data_frame.head(2)"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.9"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
